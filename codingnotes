@@ -17,6 +17,20 @@
     var num = 2;
     // The platforms
     var platforms = [];
+    
+    
+    //keeps track of my keys pressed
+    
+    var keys = {
+    	right: false,
+      left: false,
+      up: false,
+    };
+    
+    
+    
+    
+    
     // Function to render the canvas
     function rendercanvas(){
         ctx.fillStyle = "#F0F8FF";
@@ -47,8 +61,44 @@
         ctx.fillRect(platforms[1].x, platforms[1].y, platforms[1].width,platforms[1]. height);
     
     }
+    
+    function keydown(e){
+    	 if(e.keyCode == 37){
+       	keys.left = true;
+       }
+       
+        if(e.keyCode == 39){
+       	keys.right = true;
+       }
+       
+    }
+    
+    
+    function keyup(e){
+    	 if(e.keyCode == 37){
+       	keys.left =  false;
+       }
+       
+        if(e.keyCode == 39){
+       	keys.right = false;
+       }
+    }
+    
+    
+    
+    
     // Rendering the elements
     function loop() {
+    if(keys.left){
+    	player.x += -2.5;
+    }
+    
+    if(keys.right){
+    	player.x += 2.5;
+    }
+    
+    
+    
         rendercanvas();
         renderplayer();
         renderplat();
@@ -58,7 +108,9 @@
     ctx.canvas.height = 270;
     ctx.canvas.width = 270;
     createplat();
-    loop();
+    document.addEventListener("keydown",keydown);
+    document.addEventListener("keyup", keyup);
+    setInterval(loop,22)
 </script>
 <body>
 </body>
