@@ -18,6 +18,9 @@
     // The platforms
     var platforms = [];
     
+    var  gravity = 0.6;
+    var friction = 0.7;
+    
     
     //keeps track of my keys pressed
     
@@ -71,6 +74,11 @@
        	keys.right = true;
        }
        
+        if(e.keyCode == 38){
+       		if(player.jump == false){
+          player.y_v = -10;
+          }
+       }
     }
     
     
@@ -82,6 +90,12 @@
         if(e.keyCode == 39){
        	keys.right = false;
        }
+       
+        if(e.keyCode == 38){
+       		if(player.y_v < -2){
+          	player.y_v = -3
+          }
+       }
     }
     
     
@@ -89,6 +103,15 @@
     
     // Rendering the elements
     function loop() {
+    if(player.jump == false){
+    	player.x_v *= friction;
+    }else{
+    	player.y_v += gravity;
+    }
+    
+    player.jump = true;
+    
+    
     if(keys.left){
     	player.x += -2.5;
     }
@@ -96,6 +119,9 @@
     if(keys.right){
     	player.x += 2.5;
     }
+    
+    player.y += player.y_v;
+    player.x += player.x_v;
     
     
     
